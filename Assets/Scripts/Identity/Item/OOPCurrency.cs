@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OOPCurrency : Identity
@@ -12,6 +13,19 @@ public class OOPCurrency : Identity
             Debug.Log("small");
             mapGenerator.player.inventory.AddItem("SmallCurrency");
             mapGenerator.smallCurrencies[positionX, positionY] = null;
+
+            if (mapGenerator.player.inventory.numberOfItem("SmallCurrency") >= 3)
+            {
+                int x = Random.Range(0, mapGenerator.X);
+                int y = Random.Range(0, mapGenerator.Y);
+
+                if (mapGenerator.mapdata[x, y] == mapGenerator.empty)
+                {
+                    mapGenerator.PlaceBigCurrency(x, y);
+                    mapGenerator.mapdata[x, y] = mapGenerator.bigCurrency;
+                    Debug.Log("Placed BigCurrency");
+                }
+            }
         }
         else if (Name == "BigCurrency")
         {

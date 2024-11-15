@@ -70,8 +70,6 @@ public class MapGenerator : MonoBehaviour
         public int smallCurrency = 9;
         public int bigCurrency = 10;
 
-        bool BigCurrencyPlaced = false;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -187,25 +185,6 @@ public class MapGenerator : MonoBehaviour
 
             smallCurrencies = new OOPCurrency[X, Y];
             bigCurrencies = new OOPCurrency[X, Y];
-    }
-    private void FixedUpdate()
-    {
-        if (!BigCurrencyPlaced)
-        {
-            if (player.inventory.numberOfItem("SmallCurrency") >= 3)
-            {
-                int x = Random.Range(0, X);
-                int y = Random.Range(0, Y);
-
-                if (mapdata[x, y] == empty)
-                {
-                    PlaceBigCurrency(x, y);
-                    mapdata[x, y] = bigCurrency;
-                    BigCurrencyPlaced = true;
-                    Debug.Log("Placed BigCurrency");
-                }
-            }
-        }
     }
 
     public int GetMapData(float x, float y)
