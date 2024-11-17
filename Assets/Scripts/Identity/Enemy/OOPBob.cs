@@ -5,69 +5,111 @@ using UnityEngine;
 public class OOPBob : Character
 {
     public void Start()
-        {
-            GetRemainEnergy();
-        }
+    {
+        GetRemainEnergy();
+    }
 
-        public override void Hit()
-        {
-            mapGenerator.player.Attack(this);
-            this.Attack(mapGenerator.player);
-        }
+    public override void Hit()
+    {
+        mapGenerator.player.Attack(this);
+        this.Attack(mapGenerator.player);
 
-        public void Attack(OOPPlayer _player)
+        CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
+        if (cameraShake != null)
         {
-            if (mapGenerator.player.inventory.numberOfItem("BigCurrency") == 0)
+            cameraShake.StartShake(0.5f, 0.3f);
+        }
+    }
+
+    public void Attack(OOPPlayer _player)
+    {
+        if (mapGenerator.player.inventory.numberOfItem("BigCurrency") == 0)
+        {
+            _player.TakeDamage(_player.energy);
+        }
+    }
+
+    protected override void CheckDead()
+    {
+        base.CheckDead();
+
+        if (energy <= 0)
+        {
+            // ล้างค่าทั้ง 4 ช่องใน mapdata และ bosses
+            mapGenerator.bosses[positionX, positionY] = null;
+            mapGenerator.bosses[positionX + 1, positionY] = null;
+            mapGenerator.bosses[positionX, positionY + 1] = null;
+            mapGenerator.bosses[positionX + 1, positionY + 1] = null;
+
+            mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
+            mapGenerator.mapdata[positionX + 1, positionY] = mapGenerator.empty;
+            mapGenerator.mapdata[positionX, positionY + 1] = mapGenerator.empty;
+            mapGenerator.mapdata[positionX + 1, positionY + 1] = mapGenerator.empty;
+
+            // วาง Key ในตำแหน่งตรงกลางของ Boss
+            int keyX = positionX;
+            int keyY = positionY;
+            mapGenerator.PlaceKey(keyX, keyY);
+
+            // ตั้งค่าช่องของ Key ใน mapdata
+            mapGenerator.mapdata[keyX, keyY] = mapGenerator.key;
+
+            Debug.Log($"[CheckDead] Boss at ({positionX}, {positionY}) has been removed. Key placed at ({keyX}, {keyY}).");
+        }
+    }
+
+
+    public void TeleportBoss()
+    {
+        int maxAttempts = 50; // จำนวนครั้งสูงสุดที่พยายามสุ่มหาตำแหน่งว่าง
+        int attempts = 0;
+        int x, y;
+
+        do
+        {
+            // สุ่มตำแหน่งในแผนที่
+            x = Random.Range(0, mapGenerator.mapdata.GetLength(0) - 1);
+            y = Random.Range(0, mapGenerator.mapdata.GetLength(1) - 1);
+
+            attempts++;
+            if (attempts >= maxAttempts)
             {
-                _player.TakeDamage(_player.energy);
+                Debug.LogError("[TeleportBoss] Cannot find empty space to teleport after multiple attempts.");
+                return; // ออกจากฟังก์ชันหากพยายามเกินจำนวนครั้งที่กำหนด
             }
-        }
 
-        protected override void CheckDead()
-        {
-            base.CheckDead();
-            if (energy <= 0)
-            {
-                mapGenerator.bosses[positionX, positionY] = null;
-                mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
-                //mapGenerator.PlaceSmallCurrency(positionX, positionY);
-                //mapGenerator.mapdata[positionX, positionY] = mapGenerator.smallCurrency;
-        }
-        }
+        } while (!mapGenerator.IsAreaEmpty(x, y)); // ทำซ้ำจนกว่าจะเจอพื้นที่ว่าง
 
-        public void RandomMove()
-        {
-            int toX = positionX;
-            int toY = positionY;
-            int random = Random.Range(0, 4);
-            switch (random)
-            {
-                case 0:
-                    // up
-                    toY += 1;
-                    break;
-                case 1:
-                    // down 
-                    toY -= 1;
-                    break;
-                case 2:
-                    // left
-                    toX -= 1;
-                    break;
-                case 3:
-                    // right
-                    toX += 1;
-                    break;
-            }
-            if (!HasPlacement(toX, toY))
-            {
-                mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
-                mapGenerator.bosses[positionX, positionY] = null;
-                positionX = toX;
-                positionY = toY;
-                mapGenerator.mapdata[positionX, positionY] = mapGenerator.boss;
-                mapGenerator.bosses[positionX, positionY] = this;
-                transform.position = new Vector3(positionX, positionY, 0);
-            }
-        }
+        Debug.Log($"[TeleportBoss] Teleporting boss to ({x}, {y}) after {attempts} attempts.");
+
+        // ล้างตำแหน่งเดิม
+        mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
+        mapGenerator.mapdata[positionX + 1, positionY] = mapGenerator.empty;
+        mapGenerator.mapdata[positionX, positionY + 1] = mapGenerator.empty;
+        mapGenerator.mapdata[positionX + 1, positionY + 1] = mapGenerator.empty;
+
+        mapGenerator.bosses[positionX, positionY] = null;
+        mapGenerator.bosses[positionX + 1, positionY] = null;
+        mapGenerator.bosses[positionX, positionY + 1] = null;
+        mapGenerator.bosses[positionX + 1, positionY + 1] = null;
+
+        // อัปเดตตำแหน่งใหม่
+        positionX = x;
+        positionY = y;
+
+        mapGenerator.mapdata[positionX, positionY] = mapGenerator.boss;
+        mapGenerator.mapdata[positionX + 1, positionY] = mapGenerator.boss;
+        mapGenerator.mapdata[positionX, positionY + 1] = mapGenerator.boss;
+        mapGenerator.mapdata[positionX + 1, positionY + 1] = mapGenerator.boss;
+
+        mapGenerator.bosses[positionX, positionY] = this;
+        mapGenerator.bosses[positionX + 1, positionY] = this;
+        mapGenerator.bosses[positionX, positionY + 1] = this;
+        mapGenerator.bosses[positionX + 1, positionY + 1] = this;
+
+        // ย้ายตำแหน่ง GameObject
+        transform.position = new Vector3(positionX + 0.5f, positionY + 0.5f, 0);
+    }
+
+
 }

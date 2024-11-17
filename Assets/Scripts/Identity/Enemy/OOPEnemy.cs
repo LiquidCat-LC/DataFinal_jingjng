@@ -14,6 +14,12 @@ public class OOPEnemy : Character
     {
         mapGenerator.player.Attack(this);
         this.Attack(mapGenerator.player);
+
+        CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
+        if (cameraShake != null)
+        {
+            cameraShake.StartShake(0.1f, 0.3f);
+        }
     }
 
     public void Attack(OOPPlayer _player)
@@ -59,38 +65,38 @@ public class OOPEnemy : Character
     }
 
     public void RandomMove()
+    {
+        int toX = positionX;
+        int toY = positionY;
+        int random = Random.Range(0, 4);
+        switch (random)
         {
-            int toX = positionX;
-            int toY = positionY;
-            int random = Random.Range(0, 4);
-            switch (random)
-            {
-                case 0:
-                    // up
-                    toY += 1;
-                    break;
-                case 1:
-                    // down 
-                    toY -= 1;
-                    break;
-                case 2:
-                    // left
-                    toX -= 1;
-                    break;
-                case 3:
-                    // right
-                    toX += 1;
-                    break;
-            }
-            if (!HasPlacement(toX, toY))
-            {
-                mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
-                mapGenerator.enemies[positionX, positionY] = null;
-                positionX = toX;
-                positionY = toY;
-                mapGenerator.mapdata[positionX, positionY] = mapGenerator.enemy;
-                mapGenerator.enemies[positionX, positionY] = this;
-                transform.position = new Vector3(positionX, positionY, 0);
-            }
+            case 0:
+                // up
+                toY += 1;
+                break;
+            case 1:
+                // down 
+                toY -= 1;
+                break;
+            case 2:
+                // left
+                toX -= 1;
+                break;
+            case 3:
+                // right
+                toX += 1;
+                break;
         }
+        if (!HasPlacement(toX, toY))
+        {
+            mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
+            mapGenerator.enemies[positionX, positionY] = null;
+            positionX = toX;
+            positionY = toY;
+            mapGenerator.mapdata[positionX, positionY] = mapGenerator.enemy;
+            mapGenerator.enemies[positionX, positionY] = this;
+            transform.position = new Vector3(positionX, positionY, 0);
+        }
+    }
 }

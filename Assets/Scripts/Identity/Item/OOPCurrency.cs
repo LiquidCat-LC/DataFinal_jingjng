@@ -10,7 +10,7 @@ public class OOPCurrency : Identity
     {
         if (Name == "SmallCurrency")
         {
-            Debug.Log("small");
+            Debug.Log("hit small");
             mapGenerator.player.inventory.AddItem("SmallCurrency");
             mapGenerator.smallCurrencies[positionX, positionY] = null;
 
@@ -29,7 +29,7 @@ public class OOPCurrency : Identity
         }
         else if (Name == "BigCurrency")
         {
-            Debug.Log("big");
+            Debug.Log("hit big");
             mapGenerator.player.inventory.AddItem("BigCurrency");
             mapGenerator.bigCurrencies[positionX, positionY] = null;
         }
