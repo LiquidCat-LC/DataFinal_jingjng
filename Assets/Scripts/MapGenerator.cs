@@ -27,6 +27,8 @@ public class MapGenerator : MonoBehaviour
     public GameObject[] fireStormPrefab;
     public GameObject[] smallCurrencyPrefab;
     public GameObject[] bigCurrencyPrefab;
+    public GameObject[] freezePrefab;
+    public GameObject[] defensePrefab;
 
     [Header("Set Transform")]
     public Transform floorParent;
@@ -34,6 +36,7 @@ public class MapGenerator : MonoBehaviour
     public Transform itemPotionParent;
     public Transform enemyParent;
     public Transform itemCurrencyParent;
+    public Transform itemPlayerParent;
 
     [Header("Set object Count")]
     public int obsatcleCount;
@@ -43,6 +46,8 @@ public class MapGenerator : MonoBehaviour
     public int enemyCount;
     public int bossesCount;
     public int currencyCount;
+    public int freezeCount;
+    public int defenseCount;
 
     public int[,] mapdata;
 
@@ -54,6 +59,8 @@ public class MapGenerator : MonoBehaviour
     public OOPBob[,] bosses;
     public OOPCurrency[,] smallCurrencies;
     public OOPCurrency[,] bigCurrencies;
+    public OOPFreeze[,] frozen;
+    public OOPDefense[,] defended;
 
     // block types ...
     [Header("Block Types")]
@@ -69,7 +76,10 @@ public class MapGenerator : MonoBehaviour
     public int boss = 8;
     public int smallCurrency = 9;
     public int bigCurrency = 10;
+    public int freeze = 11;
+    public int defense = 12;
 
+    public bool freezeEnemiesForNextTurn = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -158,7 +168,6 @@ public class MapGenerator : MonoBehaviour
         }
 
         bosses = new OOPBob[X, Y];
-        PlaceBoss();
         count = 0;
         while (count < bossesCount)
         {
@@ -166,6 +175,7 @@ public class MapGenerator : MonoBehaviour
             int y = Random.Range(0, Y);
             if (mapdata[x, y] == empty)
             {
+                PlaceBoss();
                 //PlaceBoss(x, y);
                 count++;
             }
@@ -186,6 +196,32 @@ public class MapGenerator : MonoBehaviour
 
         smallCurrencies = new OOPCurrency[X, Y];
         bigCurrencies = new OOPCurrency[X, Y];
+
+        frozen = new OOPFreeze[X, Y];
+        count = 0;
+        while (count < freezeCount)
+        {
+            int x = Random.Range(0, X);
+            int y = Random.Range(0, Y);
+            if (mapdata[x, y] == empty)
+            {
+                PlaceFreeze(x, y);
+                count++;
+            }
+        }
+
+        defended = new OOPDefense[X, Y];
+        count = 0;
+        while (count < defenseCount)
+        {
+            int x = Random.Range(0, X);
+            int y = Random.Range(0, Y);
+            if (mapdata[x, y] == empty)
+            {
+                PlaceDefense(x, y);
+                count++;
+            }
+        }
     }
 
     public int GetMapData(float x, float y)
@@ -332,6 +368,30 @@ public class MapGenerator : MonoBehaviour
         obj.name = $"Item_{bigCurrencies[x, y].Name} {x}, {y}";
     }
 
+    public void PlaceFreeze(int x, int y)
+    {
+        GameObject obj = Instantiate(freezePrefab[0], new Vector3(x, y, 0), Quaternion.identity);
+        obj.transform.parent = itemPlayerParent;
+        mapdata[x, y] = freeze;
+        frozen[x, y] = obj.GetComponent<OOPFreeze>();
+        frozen[x, y].positionX = x;
+        frozen[x, y].positionY = y;
+        frozen[x, y].mapGenerator = this;
+        obj.name = $"Item_{frozen[x, y].Name} {x}, {y}";
+    }
+
+    public void PlaceDefense(int x, int y)
+    {
+        GameObject obj = Instantiate(defensePrefab[0], new Vector3(x, y, 0), Quaternion.identity);
+        obj.transform.parent = itemPlayerParent;
+        mapdata[x, y] = defense;
+        defended[x, y] = obj.GetComponent<OOPDefense>();
+        defended[x, y].positionX = x;
+        defended[x, y].positionY = y;
+        defended[x, y].mapGenerator = this;
+        obj.name = $"Item_{defended[x, y].Name} {x}, {y}";
+    }
+
     public bool IsAreaEmpty(int x, int y)
     {
         if (x < 0 || y < 0 || x + 1 >= mapdata.GetLength(0) || y + 1 >= mapdata.GetLength(1))
@@ -339,12 +399,6 @@ public class MapGenerator : MonoBehaviour
             Debug.Log($"[IsAreaEmpty] Out of bounds: ({x}, {y})");
             return false;
         }
-
-        Debug.Log($"[IsAreaEmpty] Checking: " +
-                  $"({x}, {y})={mapdata[x, y]}, " +
-                  $"({x + 1}, {y})={mapdata[x + 1, y]}, " +
-                  $"({x}, {y + 1})={mapdata[x, y + 1]}, " +
-                  $"({x + 1}, {y + 1})={mapdata[x + 1, y + 1]}");
 
         return mapdata[x, y] == empty &&
                mapdata[x + 1, y] == empty &&

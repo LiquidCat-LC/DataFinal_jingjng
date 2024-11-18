@@ -5,6 +5,9 @@ using UnityEngine;
 public class OOPPlayer : Character
 {
     public Inventory inventory;
+    public UltimateMove ultimateMove;
+    public GameObject defenseEffectPrefab;
+    public GameObject currentDefenseEffect;
 
     public void Start()
     {
@@ -52,6 +55,19 @@ public class OOPPlayer : Character
         }
     }
 
+    public void ActivateDefenseEffect()
+    {
+        // หาก Player มี Defense Item และยังไม่มี Effect เกราะ
+        if (mapGenerator.player.inventory.numberOfItem("Defense") > 0 && currentDefenseEffect == null)
+        {
+            // สร้าง Effect เกราะ
+            currentDefenseEffect = Instantiate(defenseEffectPrefab, transform.position, Quaternion.identity);
+            currentDefenseEffect.transform.SetParent(this.transform, false); // ติด Effect กับ Player
+            currentDefenseEffect.transform.localPosition = Vector3.zero; // วาง Effect ตรงกลาง
+            Debug.Log("Defense Effect activated.");
+        }
+    }
+
     public void Attack(OOPEnemy _enemy)
     {
         _enemy.TakeDamage(AttackPoint);
@@ -77,7 +93,15 @@ public class OOPPlayer : Character
     {
         if (inventory.numberOfItem("BigCurrency") >= 1)
         {
-            Debug.Log("Ryoik tenkai!");
+            Debug.Log("Use ultimate");
+            if (ultimateMove != null)
+            {
+                ultimateMove.TriggerUltimateMove();
+            }
+            else
+            {
+                Debug.LogError("UltimateMove reference is missing!");
+            }
         }
 
         else

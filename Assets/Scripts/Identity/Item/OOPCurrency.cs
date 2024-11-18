@@ -14,7 +14,7 @@ public class OOPCurrency : Identity
             mapGenerator.player.inventory.AddItem("SmallCurrency");
             mapGenerator.smallCurrencies[positionX, positionY] = null;
 
-            if (mapGenerator.player.inventory.numberOfItem("SmallCurrency") >= 3)
+            if (mapGenerator.player.inventory.numberOfItem("SmallCurrency") == 3)
             {
                 int x = Random.Range(0, mapGenerator.X);
                 int y = Random.Range(0, mapGenerator.Y);

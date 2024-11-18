@@ -23,9 +23,25 @@ public class OOPBob : Character
 
     public void Attack(OOPPlayer _player)
     {
-        if (mapGenerator.player.inventory.numberOfItem("BigCurrency") == 0)
+        if (mapGenerator.player.inventory.numberOfItem("Defense") > 0)
         {
-            _player.TakeDamage(_player.energy);
+            Debug.Log("Player defended with Defense Item!");
+            mapGenerator.player.inventory.UseItem("Defense");
+
+            if (_player.currentDefenseEffect != null)
+            {
+                Destroy(_player.currentDefenseEffect);
+                _player.currentDefenseEffect = null;
+                Debug.Log("Defense Effect removed.");
+            }
+        }
+
+        else
+        {
+            if (mapGenerator.player.inventory.numberOfItem("BigCurrency") == 0)
+            {
+                _player.TakeDamage(_player.energy);
+            }
         }
     }
 
@@ -50,8 +66,6 @@ public class OOPBob : Character
             int keyX = positionX;
             int keyY = positionY;
             mapGenerator.PlaceKey(keyX, keyY);
-
-            // ตั้งค่าช่องของ Key ใน mapdata
             mapGenerator.mapdata[keyX, keyY] = mapGenerator.key;
 
             Debug.Log($"[CheckDead] Boss at ({positionX}, {positionY}) has been removed. Key placed at ({keyX}, {keyY}).");

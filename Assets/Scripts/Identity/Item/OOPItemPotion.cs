@@ -13,7 +13,7 @@ public class OOPItemPotion : Identity
             isBonues = Random.Range(0, 100) < 20 ? true : false;
             if (isBonues)
             {
-                GetComponent<SpriteRenderer>().color = Color.blue;
+                //GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
         public override void Hit()

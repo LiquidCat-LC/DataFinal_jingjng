@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class OOPExit : Identity
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string unlockKey;
+    public GameObject YouWin;
 
-    // Update is called once per frame
-    void Update()
+    public override void Hit()
     {
-        
+        if (mapGenerator.player.inventory.numberOfItem(unlockKey) > 0)
+        {
+            Debug.Log("Exit unlocked");
+            mapGenerator.player.enabled = false;
+            YouWin.SetActive(true);
+            Debug.Log("You win");
+        }
+        else
+        {
+            Debug.Log($"Exit locked, require key: {unlockKey}");
+        }
     }
 }

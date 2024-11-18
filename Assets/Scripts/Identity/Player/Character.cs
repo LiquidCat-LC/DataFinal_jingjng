@@ -105,6 +105,16 @@ public class Character : Identity
                     Debug.Log("BigCurrency");
                     mapGenerator.bigCurrencies[toX, toY].Hit();
                 }
+            else if (IsFreeze(toX, toY))
+            {
+                Debug.Log("Freeze");
+                mapGenerator.frozen[toX, toY].Hit();
+            }
+            else if (IsDefense(toX, toY))
+            {
+                Debug.Log("Defense");
+                mapGenerator.defended[toX, toY].Hit();
+            }
         }
             else
             {
@@ -185,6 +195,18 @@ public class Character : Identity
             return mapData == mapGenerator.bigCurrency;
         }
 
+    public bool IsFreeze(int x, int y)
+    {
+        int mapData = mapGenerator.GetMapData(x, y);
+        return mapData == mapGenerator.freeze;
+    }
+
+    public bool IsDefense(int x, int y)
+    {
+        int mapData = mapGenerator.GetMapData(x, y);
+        return mapData == mapGenerator.defense;
+    }
+
     public virtual void TakeDamage(int Damage)
         {
             energy -= Damage;
@@ -195,14 +217,13 @@ public class Character : Identity
         {
             energy -= Damage;
             isFreeze = freeze;
-            GetComponent<SpriteRenderer>().color = Color.blue;
+            //GetComponent<SpriteRenderer>().color = Color.blue;
             Debug.Log(Name + " Current Energy : " + energy);
             Debug.Log("you is Freeze");
             CheckDead();
         }
 
-
-        public void Heal(int healPoint)
+public void Heal(int healPoint)
         {
             // energy += healPoint;
             // Debug.Log("Current Energy : " + energy);

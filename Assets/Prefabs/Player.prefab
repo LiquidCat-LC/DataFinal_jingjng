@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7100829083965268834}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,3 +104,4 @@ MonoBehaviour:
   energy: 0
   AttackPoint: 0
   inventory: {fileID: 0}
+  ultimateMove: {fileID: 0}

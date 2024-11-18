@@ -12,7 +12,7 @@ public class OOPWall : Identity
             IsIceWall = Random.Range(0, 100) < 20 ? true : false;
             if (IsIceWall)
             {
-                GetComponent<SpriteRenderer>().color = Color.blue;
+                //GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
         public override void Hit()
