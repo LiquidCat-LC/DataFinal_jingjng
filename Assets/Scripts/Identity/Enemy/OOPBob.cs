@@ -23,8 +23,10 @@ public class OOPBob : Character
 
     public void Attack(OOPPlayer _player)
     {
+        // ถ้ามี Defense มากกว่า 0
         if (mapGenerator.player.inventory.numberOfItem("Defense") > 0)
         {
+            // ใช้ item defense
             Debug.Log("Player defended with Defense Item!");
             mapGenerator.player.inventory.UseItem("Defense");
 

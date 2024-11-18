@@ -6,10 +6,9 @@ public class UltimateMove : MonoBehaviour
 {
     public GameObject ultimateEffectPrefab; // Prefab ของ Ultimate Effect
     public GameObject swordEffectPrefab; // Prefab เอฟเฟกต์ฟันดาบ
-    public GameObject grayBackgroundPrefab; // Prefab ของพื้นหลังสีเทา
     public CameraShake cameraShake; // อ้างอิง CameraShake
 
-    public float fadeDuration = 1.0f; // ระยะเวลาในการเฟด (ไม่ได้ใช้สำหรับพื้นหลัง)
+    public float fadeDuration = 1.0f; // ระยะเวลาในการเฟด 
     public float moveDuration = 1.0f; // ระยะเวลาในการเลื่อน Ultimate Effect
     public float waitBeforeSwordEffect = 3.0f; // เวลาก่อนแสดงฟันดาบ
     public float swordEffectDuration = 5.0f; // ระยะเวลาแสดงเอฟเฟกต์ฟันดาบ
@@ -17,7 +16,6 @@ public class UltimateMove : MonoBehaviour
 
     private GameObject currentUltimateEffect; // ตัวอ้างอิงของ Ultimate Effect
     private GameObject currentSwordEffect; // ตัวอ้างอิงของ Sword Effect
-    private GameObject grayBackground; // ตัวอ้างอิงของพื้นหลังสีเทา
     private List<SpriteRenderer> mapRenderers = new List<SpriteRenderer>(); // รายการ SpriteRenderer ในแผนที่
 
     private void Start()
@@ -32,8 +30,6 @@ public class UltimateMove : MonoBehaviour
 
     private IEnumerator StartUltimateMove()
     {
-        // เพิ่มพื้นหลังสีเทา
-        AddGrayBackground();
 
         if (ultimateEffectPrefab != null)
         {
@@ -81,8 +77,6 @@ public class UltimateMove : MonoBehaviour
 
     private void EndUltimateMove()
     {
-        // ลบพื้นหลังสีเทา
-        RemoveGrayBackground();
 
         if (currentUltimateEffect != null)
         {
@@ -148,26 +142,6 @@ public class UltimateMove : MonoBehaviour
         yield return new WaitForSeconds(swordEffectDuration); // รอจนกว่า Sword Effect จะจบ
 
         renderer.color = originalColor; // คืนค่าเป็นสีเดิม
-    }
-
-    private void AddGrayBackground()
-    {
-        if (grayBackgroundPrefab != null && grayBackground == null)
-        {
-            // สร้างพื้นหลังสีเทา
-            grayBackground = Instantiate(grayBackgroundPrefab, Vector3.zero, Quaternion.identity);
-            grayBackground.transform.localScale = new Vector3(100f, 100f, 1f); // ตั้งขนาดให้ครอบคลุมทั้งฉาก
-            grayBackground.transform.position = new Vector3(0, 0, 10); // วางไว้ด้านหลังฉาก (แกน Z)
-        }
-    }
-
-    private void RemoveGrayBackground()
-    {
-        if (grayBackground != null)
-        {
-            Destroy(grayBackground);
-            grayBackground = null;
-        }
     }
 
     private void CacheMapObjectsByTags()

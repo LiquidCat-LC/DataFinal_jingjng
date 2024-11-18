@@ -74,8 +74,10 @@ public class OOPPlayer : Character
     }
     public void Attack(OOPBob _boss)
     {
+        // ถ้ามี BigCurrency มากกว่าหรือเท่ากับ 1
         if (mapGenerator.player.inventory.numberOfItem("BigCurrency") >= 1)
         {
+            // ฆ่า boss ด้วยพลังชีวิตของบอส
             _boss.TakeDamage(_boss.energy);
         }
     }
@@ -91,16 +93,14 @@ public class OOPPlayer : Character
 
     public void UseFireStorm()
     {
+        // ถ้ามี BigCurrency มากกว่าหรือเท่ากับ 1
         if (inventory.numberOfItem("BigCurrency") >= 1)
         {
-            Debug.Log("Use ultimate");
+            // ให้กางอนาเขต
+            Debug.Log("Use Ultimate");
             if (ultimateMove != null)
             {
                 ultimateMove.TriggerUltimateMove();
-            }
-            else
-            {
-                Debug.LogError("UltimateMove reference is missing!");
             }
         }
 

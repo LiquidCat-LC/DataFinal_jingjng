@@ -472,7 +472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ultimateEffectPrefab: {fileID: 5023702492093671150, guid: c930ed866f0c6aa40a3910bb830299ab, type: 3}
   swordEffectPrefab: {fileID: 5023702492093671150, guid: ee1a7c946fc3edc4b8bece78e9512a33, type: 3}
-  grayBackgroundPrefab: {fileID: 0}
+  grayBackgroundPrefab: {fileID: 6748966576491560858, guid: d6f2720f8f376094d90064c92f0dfff5, type: 3}
   cameraShake: {fileID: 519420033}
   fadeDuration: 1
   moveDuration: 1
