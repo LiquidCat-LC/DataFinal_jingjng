@@ -8,9 +8,11 @@ public class OOPPlayer : Character
     public UltimateMove ultimateMove;
     public GameObject defenseEffectPrefab;
     public GameObject currentDefenseEffect;
+    public bool isUseultimateMoveNow;
 
     public void Start()
     {
+        isUseultimateMoveNow = false;
         PrintInfo();
         GetRemainEnergy();
 
@@ -57,13 +59,13 @@ public class OOPPlayer : Character
 
     public void ActivateDefenseEffect()
     {
-        // À“° Player ¡’ Defense Item ·≈–¬—ß‰¡Ë¡’ Effect ‡°√“–
+        // ÔøΩ“° Player ÔøΩÔøΩ Defense Item ÔøΩÔøΩÔøΩÔøΩ—ßÔøΩÔøΩÔøΩÔøΩÔøΩ Effect ÔøΩÔøΩÔøΩÔøΩ
         if (mapGenerator.player.inventory.numberOfItem("Defense") > 0 && currentDefenseEffect == null)
         {
-            //  √È“ß Effect ‡°√“–
+            // ÔøΩÔøΩÔøΩ“ß Effect ÔøΩÔøΩÔøΩÔøΩ
             currentDefenseEffect = Instantiate(defenseEffectPrefab, transform.position, Quaternion.identity);
-            currentDefenseEffect.transform.SetParent(this.transform, false); // µ‘¥ Effect °—∫ Player
-            currentDefenseEffect.transform.localPosition = Vector3.zero; // «“ß Effect µ√ß°≈“ß
+            currentDefenseEffect.transform.SetParent(this.transform, false); // ÔøΩ‘¥ Effect ÔøΩ—∫ Player
+            currentDefenseEffect.transform.localPosition = Vector3.zero; // ÔøΩ“ß Effect ÔøΩ√ßÔøΩÔøΩ“ß
             Debug.Log("Defense Effect activated.");
         }
     }
@@ -74,10 +76,10 @@ public class OOPPlayer : Character
     }
     public void Attack(OOPBob _boss)
     {
-        // ∂È“¡’ BigCurrency ¡“°°«Ë“À√◊Õ‡∑Ë“°—∫ 1
+        // ÔøΩÔøΩÔøΩÔøΩÔøΩ BigCurrency ÔøΩ“°ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ“°—∫ 1
         if (mapGenerator.player.inventory.numberOfItem("BigCurrency") >= 1)
         {
-            // ¶Ë“ boss ¥È«¬æ≈—ß™’«‘µ¢Õß∫Õ 
+            // ÔøΩÔøΩÔøΩ boss ÔøΩÔøΩÔøΩ¬æÔøΩ—ßÔøΩÔøΩÔøΩ‘µÔøΩÕßÔøΩÔøΩÔøΩ
             _boss.TakeDamage(_boss.energy);
         }
     }
@@ -93,13 +95,13 @@ public class OOPPlayer : Character
 
     public void UseFireStorm()
     {
-        // ∂È“¡’ BigCurrency ¡“°°«Ë“À√◊Õ‡∑Ë“°—∫ 1
+        // ÔøΩÔøΩÔøΩÔøΩÔøΩ BigCurrency ÔøΩ“°ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ“°—∫ 1
         if (inventory.numberOfItem("BigCurrency") >= 1)
         {
-            // „ÀÈ°“ßÕπ“‡¢µ
-            Debug.Log("Use Ultimate");
-            if (ultimateMove != null)
+            if (ultimateMove != null && !isUseultimateMoveNow)
             {
+                Debug.Log("Use Ultimate");
+                isUseultimateMoveNow = true;
                 ultimateMove.TriggerUltimateMove();
             }
         }

@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class UltimateMove : MonoBehaviour
 {
-    public GameObject ultimateEffectPrefab; // Prefab ¢Í§ Ultimate Effect
-    public GameObject swordEffectPrefab; // Prefab àÍ¿à¿¡µì¿Ñ¹´Òº
-    public CameraShake cameraShake; // ÍéÒ§ÍÔ§ CameraShake
+    public OOPPlayer _player;
+    public GameObject ultimateEffectPrefab; // Prefab ï¿½Í§ Ultimate Effect
+    public GameObject swordEffectPrefab; // Prefab ï¿½Í¿à¿¡ï¿½ï¿½Ñ¹ï¿½Òº
+    public CameraShake cameraShake; // ï¿½ï¿½Ò§ï¿½Ô§ CameraShake
 
-    public float fadeDuration = 1.0f; // ÃÐÂÐàÇÅÒã¹¡ÒÃà¿´ 
-    public float moveDuration = 1.0f; // ÃÐÂÐàÇÅÒã¹¡ÒÃàÅ×èÍ¹ Ultimate Effect
-    public float waitBeforeSwordEffect = 3.0f; // àÇÅÒ¡èÍ¹áÊ´§¿Ñ¹´Òº
-    public float swordEffectDuration = 5.0f; // ÃÐÂÐàÇÅÒáÊ´§àÍ¿à¿¡µì¿Ñ¹´Òº
-    public Color bossHitColor = Color.red; // ÊÕá´§¢Í§ºÍÊàÁ×èÍâ´¹¿Ñ¹
+    public float fadeDuration = 1.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã¹¡ï¿½ï¿½à¿´ 
+    public float moveDuration = 1.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã¹¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ Ultimate Effect
+    public float waitBeforeSwordEffect = 3.0f; // ï¿½ï¿½ï¿½Ò¡ï¿½Í¹ï¿½Ê´ï¿½ï¿½Ñ¹ï¿½Òº
+    public float swordEffectDuration = 5.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê´ï¿½ï¿½Í¿à¿¡ï¿½ï¿½Ñ¹ï¿½Òº
+    public Color bossHitColor = Color.red; // ï¿½ï¿½á´§ï¿½Í§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â´¹ï¿½Ñ¹
 
-    private GameObject currentUltimateEffect; // µÑÇÍéÒ§ÍÔ§¢Í§ Ultimate Effect
-    private GameObject currentSwordEffect; // µÑÇÍéÒ§ÍÔ§¢Í§ Sword Effect
-    private List<SpriteRenderer> mapRenderers = new List<SpriteRenderer>(); // ÃÒÂ¡ÒÃ SpriteRenderer ã¹á¼¹·Õè
+    private GameObject currentUltimateEffect; // ï¿½ï¿½ï¿½ï¿½ï¿½Ò§ï¿½Ô§ï¿½Í§ Ultimate Effect
+    private GameObject currentSwordEffect; // ï¿½ï¿½ï¿½ï¿½ï¿½Ò§ï¿½Ô§ï¿½Í§ Sword Effect
+    private List<SpriteRenderer> mapRenderers = new List<SpriteRenderer>(); // ï¿½ï¿½Â¡ï¿½ï¿½ SpriteRenderer ï¿½á¼¹ï¿½ï¿½ï¿½
 
     private void Start()
     {
-        CacheMapObjectsByTags(); // ¤é¹ËÒáÅÐà¡çºÇÑµ¶Øã¹á¼¹·ÕèµÒÁ Tags
+        CacheMapObjectsByTags(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½á¼¹ï¿½ï¿½ï¿½ï¿½ï¿½ Tags
     }
 
     public void TriggerUltimateMove()
@@ -33,7 +34,7 @@ public class UltimateMove : MonoBehaviour
 
         if (ultimateEffectPrefab != null)
         {
-            // µÑé§µÓáË¹è§ Ultimate Effect
+            // ï¿½ï¿½é§µï¿½ï¿½Ë¹ï¿½ Ultimate Effect
             Vector3 ultimatePosition = transform.position + new Vector3(0, 0.5f, 0);
             currentUltimateEffect = Instantiate(ultimateEffectPrefab, ultimatePosition, Quaternion.identity);
             currentUltimateEffect.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
@@ -41,7 +42,7 @@ public class UltimateMove : MonoBehaviour
             SpriteRenderer renderer = currentUltimateEffect.GetComponent<SpriteRenderer>();
             if (renderer != null)
             {
-                renderer.color = new Color(1f, 1f, 1f, 0f); // àÃÔèÁµé¹â»Ãè§ãÊ
+                renderer.color = new Color(1f, 1f, 1f, 0f); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }
         }
 
@@ -59,20 +60,21 @@ public class UltimateMove : MonoBehaviour
             SpriteRenderer renderer = currentUltimateEffect.GetComponent<SpriteRenderer>();
             if (renderer != null)
             {
-                renderer.color = new Color(1f, 1f, 1f, t); // ¤èÍÂ æ à¿´à¢éÒ
+                renderer.color = new Color(1f, 1f, 1f, t); // ï¿½ï¿½ï¿½ï¿½ ï¿½ à¿´ï¿½ï¿½ï¿½
             }
 
             yield return null;
         }
 
-        // ÃÍ 3 ÇÔ¹Ò·Õ¡èÍ¹àÃÔèÁ¿Ñ¹´Òº
+        // ï¿½ï¿½ 3 ï¿½Ô¹Ò·Õ¡ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½Òº
         yield return new WaitForSeconds(waitBeforeSwordEffect);
 
-        // áÊ´§ Sword Effect áÅÐâ¨ÁµÕËÅÑ§¨Ò¡ÁÑ¹¨º
+        // ï¿½Ê´ï¿½ Sword Effect ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½Ò¡ï¿½Ñ¹ï¿½ï¿½
         yield return StartCoroutine(ShowSwordEffect());
 
-        // ¨º Ultimate Move
+        // ï¿½ï¿½ Ultimate Move
         EndUltimateMove();
+        _player.isUseultimateMoveNow = false;
     }
 
     private void EndUltimateMove()
@@ -93,25 +95,25 @@ public class UltimateMove : MonoBehaviour
 
     private IEnumerator ShowSwordEffect()
     {
-        // ¤é¹ËÒºÍÊ·Ø¡µÑÇã¹©Ò¡ (ãªé Tag "Boss")
+        // ï¿½ï¿½ï¿½Òºï¿½Ê·Ø¡ï¿½ï¿½ï¿½ã¹©Ò¡ (ï¿½ï¿½ Tag "Boss")
         GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
 
         foreach (GameObject boss in bosses)
         {
-            // ÊÃéÒ§ Sword Effect º¹µÓáË¹è§¢Í§ºÍÊ
+            // ï¿½ï¿½ï¿½Ò§ Sword Effect ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹è§¢Í§ï¿½ï¿½ï¿½
             if (swordEffectPrefab != null)
             {
                 GameObject swordEffect = Instantiate(swordEffectPrefab, boss.transform.position, Quaternion.identity);
-                Destroy(swordEffect, swordEffectDuration); // Åº Sword Effect ËÅÑ§¨Ò¡ËÁ´àÇÅÒ
+                Destroy(swordEffect, swordEffectDuration); // Åº Sword Effect ï¿½ï¿½Ñ§ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }
 
-            // ÊÑè¹¡ÅéÍ§¢³Ðâ¨ÁµÕºÍÊ
+            // ï¿½ï¿½è¹¡ï¿½ï¿½Í§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õºï¿½ï¿½
             if (cameraShake != null)
             {
                 cameraShake.StartShake(0.2f, swordEffectDuration);
             }
 
-            // à»ÅÕèÂ¹ÊÕºÍÊà»ç¹ÊÕá´§à¾×èÍºè§ºÍ¡ÇèÒ¡ÓÅÑ§â´¹â¨ÁµÕ
+            // ï¿½ï¿½ï¿½ï¿½Â¹ï¿½Õºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á´§ï¿½ï¿½ï¿½Íºè§ºÍ¡ï¿½ï¿½Ò¡ï¿½ï¿½Ñ§â´¹ï¿½ï¿½ï¿½ï¿½
             SpriteRenderer renderer = boss.GetComponent<SpriteRenderer>();
             if (renderer != null)
             {
@@ -119,34 +121,34 @@ public class UltimateMove : MonoBehaviour
             }
         }
 
-        // ÃÍ¨¹¡ÇèÒ Sword Effect ¨Ð¨º
+        // ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ Sword Effect ï¿½Ð¨ï¿½
         yield return new WaitForSeconds(swordEffectDuration);
 
-        // â¨ÁµÕºÍÊ·Ø¡µÑÇËÅÑ§ Sword Effect ¨º
+        // ï¿½ï¿½ï¿½Õºï¿½Ê·Ø¡ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ Sword Effect ï¿½ï¿½
         foreach (GameObject boss in bosses)
         {
             var bossScript = boss.GetComponent<OOPBob>();
             if (bossScript != null)
             {
-                bossScript.Hit(); // ºÍÊ¨Ðä´éÃÑº´ÒàÁ¨ËÅÑ§ Sword Effect
+                bossScript.Hit(); // ï¿½ï¿½Ê¨ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ Sword Effect
             }
         }
     }
 
-    // ¿Ñ§¡ìªÑ¹à»ÅÕèÂ¹ÊÕºÍÊà»ç¹á´§ªÑèÇ¤ÃÒÇ
+    // ï¿½Ñ§ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Â¹ï¿½Õºï¿½ï¿½ï¿½ï¿½á´§ï¿½ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½
     private IEnumerator ChangeBossColor(SpriteRenderer renderer)
     {
         Color originalColor = renderer.color;
-        renderer.color = bossHitColor; // à»ÅÕèÂ¹à»ç¹ÊÕá´§
+        renderer.color = bossHitColor; // ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½ï¿½á´§
 
-        yield return new WaitForSeconds(swordEffectDuration); // ÃÍ¨¹¡ÇèÒ Sword Effect ¨Ð¨º
+        yield return new WaitForSeconds(swordEffectDuration); // ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ Sword Effect ï¿½Ð¨ï¿½
 
-        renderer.color = originalColor; // ¤×¹¤èÒà»ç¹ÊÕà´ÔÁ
+        renderer.color = originalColor; // ï¿½×¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     private void CacheMapObjectsByTags()
     {
-        // ¤é¹ËÒ GameObjects µÒÁ Tags
+        // ï¿½ï¿½ï¿½ï¿½ GameObjects ï¿½ï¿½ï¿½ Tags
         string[] tagsToCache = { "Item", "Map", "Enemy" };
 
         foreach (string tag in tagsToCache)
@@ -157,7 +159,7 @@ public class UltimateMove : MonoBehaviour
                 SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
                 if (renderer != null)
                 {
-                    mapRenderers.Add(renderer); // à¾ÔèÁ SpriteRenderer Å§ã¹ÃÒÂ¡ÒÃ
+                    mapRenderers.Add(renderer); // ï¿½ï¿½ï¿½ï¿½ SpriteRenderer Å§ï¿½ï¿½ï¿½Â¡ï¿½ï¿½
                 }
             }
         }
