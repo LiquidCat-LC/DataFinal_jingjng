@@ -1084,6 +1084,7 @@ MonoBehaviour:
   ultimateSound: {fileID: 8300000, guid: 666ecd7d108278e4c8168761e0864760, type: 3}
   moveSound: {fileID: 8300000, guid: 02a109c2b7b29ed4dabf90131f6d357d, type: 3}
   shootSound: {fileID: 8300000, guid: e9a4f6aac4fb19f4a8cf899fafbecb0c, type: 3}
+  deadSound: {fileID: 0}
 --- !u!4 &750266680
 Transform:
   m_ObjectHideFlags: 0
@@ -1481,7 +1482,7 @@ MonoBehaviour:
   fadeDuration: 1.5
   waitDuration: 2
   moveDuration: 1
-  waitBeforeSwordEffect: 3
+  waitBeforeSwordEffect: 2.7
   swordEffectDuration: 10
   bossHitColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1467737180
