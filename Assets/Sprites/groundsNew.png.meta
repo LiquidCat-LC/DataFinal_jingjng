@@ -93,6 +93,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -3691,8 +3717,8 @@ TextureImporter:
       name: groundsNew_171
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 768
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -3712,7 +3738,7 @@ TextureImporter:
       name: groundsNew_172
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 64
         width: 64
         height: 64
@@ -3733,7 +3759,7 @@ TextureImporter:
       name: groundsNew_173
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 64
         width: 64
         height: 64
@@ -3754,7 +3780,7 @@ TextureImporter:
       name: groundsNew_174
       rect:
         serializedVersion: 2
-        x: 192
+        x: 128
         y: 64
         width: 64
         height: 64
@@ -3775,7 +3801,7 @@ TextureImporter:
       name: groundsNew_175
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 64
         width: 64
         height: 64
@@ -3796,7 +3822,7 @@ TextureImporter:
       name: groundsNew_176
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 64
         width: 64
         height: 64
@@ -3817,7 +3843,7 @@ TextureImporter:
       name: groundsNew_177
       rect:
         serializedVersion: 2
-        x: 384
+        x: 320
         y: 64
         width: 64
         height: 64
@@ -3838,7 +3864,7 @@ TextureImporter:
       name: groundsNew_178
       rect:
         serializedVersion: 2
-        x: 448
+        x: 384
         y: 64
         width: 64
         height: 64
@@ -3859,7 +3885,7 @@ TextureImporter:
       name: groundsNew_179
       rect:
         serializedVersion: 2
-        x: 512
+        x: 448
         y: 64
         width: 64
         height: 64
@@ -3880,7 +3906,7 @@ TextureImporter:
       name: groundsNew_180
       rect:
         serializedVersion: 2
-        x: 576
+        x: 512
         y: 64
         width: 64
         height: 64
@@ -3901,7 +3927,7 @@ TextureImporter:
       name: groundsNew_181
       rect:
         serializedVersion: 2
-        x: 640
+        x: 576
         y: 64
         width: 64
         height: 64
@@ -3922,7 +3948,7 @@ TextureImporter:
       name: groundsNew_182
       rect:
         serializedVersion: 2
-        x: 704
+        x: 640
         y: 64
         width: 64
         height: 64
@@ -3943,8 +3969,8 @@ TextureImporter:
       name: groundsNew_183
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 704
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -3964,8 +3990,8 @@ TextureImporter:
       name: groundsNew_184
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 768
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -3985,7 +4011,7 @@ TextureImporter:
       name: groundsNew_185
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 0
         width: 64
         height: 64
@@ -4006,7 +4032,7 @@ TextureImporter:
       name: groundsNew_186
       rect:
         serializedVersion: 2
-        x: 192
+        x: 64
         y: 0
         width: 64
         height: 64
@@ -4027,7 +4053,7 @@ TextureImporter:
       name: groundsNew_187
       rect:
         serializedVersion: 2
-        x: 256
+        x: 128
         y: 0
         width: 64
         height: 64
@@ -4048,7 +4074,7 @@ TextureImporter:
       name: groundsNew_188
       rect:
         serializedVersion: 2
-        x: 320
+        x: 192
         y: 0
         width: 64
         height: 64
@@ -4069,7 +4095,7 @@ TextureImporter:
       name: groundsNew_189
       rect:
         serializedVersion: 2
-        x: 384
+        x: 256
         y: 0
         width: 64
         height: 64
@@ -4090,7 +4116,7 @@ TextureImporter:
       name: groundsNew_190
       rect:
         serializedVersion: 2
-        x: 448
+        x: 320
         y: 0
         width: 64
         height: 64
@@ -4111,7 +4137,7 @@ TextureImporter:
       name: groundsNew_191
       rect:
         serializedVersion: 2
-        x: 512
+        x: 384
         y: 0
         width: 64
         height: 64
@@ -4132,7 +4158,7 @@ TextureImporter:
       name: groundsNew_192
       rect:
         serializedVersion: 2
-        x: 576
+        x: 448
         y: 0
         width: 64
         height: 64
@@ -4153,7 +4179,7 @@ TextureImporter:
       name: groundsNew_193
       rect:
         serializedVersion: 2
-        x: 640
+        x: 512
         y: 0
         width: 64
         height: 64
@@ -4174,7 +4200,7 @@ TextureImporter:
       name: groundsNew_194
       rect:
         serializedVersion: 2
-        x: 704
+        x: 576
         y: 0
         width: 64
         height: 64
@@ -4187,6 +4213,69 @@ TextureImporter:
       bones: []
       spriteID: 382850dd063666648883e4db6b352f3c
       internalID: 587973697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: groundsNew_195
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea6e181ec4889ae4cbf3dd8e3f82e018
+      internalID: 1978315877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: groundsNew_196
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c48174d42bc5f624a8034e237da1cae2
+      internalID: -737407813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: groundsNew_197
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff0d2d47c93dc154b9edcffb77a3128f
+      internalID: 1852043439
       vertices: []
       indices: 
       edges: []
@@ -4309,6 +4398,9 @@ TextureImporter:
       groundsNew_192: -354524523
       groundsNew_193: 1063673015
       groundsNew_194: 587973697
+      groundsNew_195: 1978315877
+      groundsNew_196: -737407813
+      groundsNew_197: 1852043439
       groundsNew_2: -1394087529
       groundsNew_20: -998749661
       groundsNew_21: 246163415

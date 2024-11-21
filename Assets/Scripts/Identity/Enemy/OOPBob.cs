@@ -11,6 +11,7 @@ public class OOPBob : Character
 
     public override void Hit()
     {
+        
         mapGenerator.player.Attack(this);
         this.Attack(mapGenerator.player);
 
@@ -23,10 +24,9 @@ public class OOPBob : Character
 
     public void Attack(OOPPlayer _player)
     {
-        // ถ้ามี Defense มากกว่า 0
         if (mapGenerator.player.inventory.numberOfItem("Defense") > 0)
         {
-            // ใช้ item defense
+            SoundManager.Instance.PlaySound(SoundManager.Instance.hitArmorSound);
             Debug.Log("Player defended with Defense Item!");
             mapGenerator.player.inventory.UseItem("Defense");
 
@@ -42,6 +42,7 @@ public class OOPBob : Character
         {
             if (mapGenerator.player.inventory.numberOfItem("BigCurrency") == 0)
             {
+                SoundManager.Instance.PlaySound(SoundManager.Instance.hitSound);
                 _player.TakeDamage(_player.energy);
             }
         }

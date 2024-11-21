@@ -18,6 +18,7 @@ public class OOPItemPotion : Identity
         }
         public override void Hit()
         {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickupSound);
             if (isBonues)
             {
                 mapGenerator.player.Heal(healPoint, isBonues);

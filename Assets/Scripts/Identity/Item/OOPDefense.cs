@@ -6,6 +6,7 @@ public class OOPDefense : Identity
 {
     public override void Hit()
     {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickupSound);
         mapGenerator.player.inventory.AddItem("Defense");
         mapGenerator.defended[positionX, positionY] = null;
         mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;

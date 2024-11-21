@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1468477046, guid: ad8443815d589cb4cbdf1540bf3b618c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,3 +104,4 @@ MonoBehaviour:
   energy: 10
   AttackPoint: 10
   freezeEffectPrefab: {fileID: 5023702492093671150, guid: 4cee38979a6dabb43a700c53490aa916, type: 3}
+  currentFreezeEffect: {fileID: 0}

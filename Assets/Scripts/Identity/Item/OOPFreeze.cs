@@ -6,6 +6,7 @@ public class OOPFreeze : Identity
 {
     public override void Hit()
     {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickupSound);
         // ค้นหา Enemy ทั้งหมดในฉาก
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)

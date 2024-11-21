@@ -13,6 +13,7 @@ public class OOPCurrency : Identity
     }
     public override void Hit()
     {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickupSound);
         if (Name == "SmallCurrency")
         {
             Debug.Log("hit small");
@@ -20,18 +21,25 @@ public class OOPCurrency : Identity
             mapGenerator.smallCurrencies[positionX, positionY] = null;
             _QuestManager.CollectSmallCurrency();
 
-            if (mapGenerator.player.inventory.numberOfItem("SmallCurrency") == 3)
+            if (mapGenerator.player.inventory.numberOfItem("SmallCurrency") >= 3)
             {
-                int x = Random.Range(0, mapGenerator.X);
-                int y = Random.Range(0, mapGenerator.Y);
+                bool placed = false;
 
-                if (mapGenerator.mapdata[x, y] == mapGenerator.empty)
+                while (!placed)
                 {
-                    mapGenerator.PlaceBigCurrency(x, y);
-                    mapGenerator.mapdata[x, y] = mapGenerator.bigCurrency;
-                    Debug.Log("Placed BigCurrency");
+                    int x = Random.Range(0, mapGenerator.X);
+                    int y = Random.Range(0, mapGenerator.Y);
+
+                    if (mapGenerator.mapdata[x, y] == mapGenerator.empty)
+                    {
+                        mapGenerator.PlaceBigCurrency(x, y);
+                        mapGenerator.mapdata[x, y] = mapGenerator.bigCurrency;
+                        Debug.Log($"Placed BigCurrency at ({x}, {y})");
+                        placed = true;
+                    }
                 }
             }
+
         }
         else if (Name == "BigCurrency")
         {

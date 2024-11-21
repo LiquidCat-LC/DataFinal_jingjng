@@ -6,6 +6,7 @@ public class OOPScroll : Identity
 {
     public override void Hit()
     {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickupSound);
         mapGenerator.player.inventory.AddItem("FireStorm");
         mapGenerator.fireStorms[positionX, positionY] = null;
         mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;

@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Map
   - Item
+  - Wall
+  - Floor
   layers:
   - Default
   - TransparentFX

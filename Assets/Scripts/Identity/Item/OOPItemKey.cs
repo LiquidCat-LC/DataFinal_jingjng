@@ -14,6 +14,7 @@ public class OOPItemKey : Identity
 
     public override void Hit()
     {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickupSound);
         Destroy(gameObject);
         mapGenerator.player.inventory.AddItem(key);
         mapGenerator.keys[positionX, positionY] = null;

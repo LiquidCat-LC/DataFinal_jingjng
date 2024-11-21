@@ -12,6 +12,7 @@ public class OOPEnemy : Character
 
     public override void Hit()
     {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.hitSound);
         mapGenerator.player.Attack(this);
         this.Attack(mapGenerator.player);
 
@@ -26,6 +27,7 @@ public class OOPEnemy : Character
     {
         if (mapGenerator.player.inventory.numberOfItem("Defense") > 0)
         {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.hitArmorSound);
             Debug.Log("Player defended with Defense Item!");
             mapGenerator.player.inventory.UseItem("Defense");
 
@@ -39,6 +41,7 @@ public class OOPEnemy : Character
 
         else
         {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.hitSound);
             _player.TakeDamage(AttackPoint);
         }
     }

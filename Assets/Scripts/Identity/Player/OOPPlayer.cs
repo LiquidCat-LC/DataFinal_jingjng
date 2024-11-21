@@ -110,6 +110,7 @@ public class OOPPlayer : Character
         {
             if (inventory.numberOfItem("FireStorm") > 0)
             {
+                SoundManager.Instance.PlaySound(SoundManager.Instance.shootSound);
                 inventory.UseItem("FireStorm");
                 inventory.UseItem("FireStorm");
                 List<OOPEnemy> enemies = GetEnemiesAroundPlayer(this.gameObject.transform.position, 1);
