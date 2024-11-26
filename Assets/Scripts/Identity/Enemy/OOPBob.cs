@@ -29,6 +29,7 @@ public class OOPBob : Character
             SoundManager.Instance.PlaySound(SoundManager.Instance.hitArmorSound);
             Debug.Log("Player defended with Defense Item!");
             mapGenerator.player.inventory.UseItem("Defense");
+            UIManager.Instance.Updatedefense(false);
 
             if (_player.currentDefenseEffect != null)
             {

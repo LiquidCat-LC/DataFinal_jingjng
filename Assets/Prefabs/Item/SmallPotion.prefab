@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7709357900619501251}
   - component: {fileID: 1599319898006715308}
   m_Layer: 0
-  m_Name: Potion
+  m_Name: SmallPotion
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1e4f527d6e1ea81458661cd18f3e5643, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eed803c95c59e0a4aad3a113e7a725a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,5 +101,5 @@ MonoBehaviour:
   positionX: 0
   positionY: 0
   mapGenerator: {fileID: 0}
-  healPoint: 10
+  healPoint: 5
   isBonues: 0

@@ -32,4 +32,6 @@ public class QuestManager : MonoBehaviour
         hasKey = true;
         UIManager.Instance.UpdateQuestNumbers();
     }
+
+    
 }

@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.8066038, g: 0.89389336, b: 1, a: 1}
+  m_Sprite: {fileID: -313607841, guid: b6f1eea81b881ab4c9951487e50d5675, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,4 +101,3 @@ MonoBehaviour:
   positionX: 0
   positionY: 0
   mapGenerator: {fileID: 0}
-  freezeEffectPrefab: {fileID: 5023702492093671150, guid: 4cee38979a6dabb43a700c53490aa916, type: 3}

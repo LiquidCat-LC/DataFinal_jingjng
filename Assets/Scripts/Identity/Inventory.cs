@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour
             }
 
             Debug.Log($"add item {itemName} => total: {inventory[itemName]}");
+
         }
 
         public void AddItem(string itemName, int amount)

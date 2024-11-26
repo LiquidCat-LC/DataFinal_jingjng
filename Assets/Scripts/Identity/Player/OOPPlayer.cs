@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OOPPlayer : Character
@@ -25,7 +26,7 @@ public class OOPPlayer : Character
         {
             PrintInfo();
             GetRemainEnergy();
-            inventory.AddItem("FireStorm");
+            //inventory.AddItem("FireStorm");
         }
         else
         {
@@ -35,7 +36,7 @@ public class OOPPlayer : Character
 
     public void Update()
     {
-        if(isUseultimateMoveNow == false)
+        if (isUseultimateMoveNow == false)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -56,19 +57,27 @@ public class OOPPlayer : Character
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 UseFireStorm();
+                UIManager.Instance.UpdateScrollNumber(inventory.numberOfItem("FireStorm"));
             }
         }
+
+        UIManager.Instance.UpdateEnergyUI();
     }
 
     public void ActivateDefenseEffect()
     {
-        // �ҡ Player �� Defense Item ����ѧ����� Effect ����
-        if (mapGenerator.player.inventory.numberOfItem("Defense") > 0 && currentDefenseEffect == null)
+        if (
+            mapGenerator.player.inventory.numberOfItem("Defense") > 0
+            && currentDefenseEffect == null
+        )
         {
-            // ���ҧ Effect ����
-            currentDefenseEffect = Instantiate(defenseEffectPrefab, transform.position, Quaternion.identity);
-            currentDefenseEffect.transform.SetParent(this.transform, false); // �Դ Effect �Ѻ Player
-            currentDefenseEffect.transform.localPosition = Vector3.zero; // �ҧ Effect �ç��ҧ
+            currentDefenseEffect = Instantiate(
+                defenseEffectPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+            currentDefenseEffect.transform.SetParent(this.transform, false);
+            currentDefenseEffect.transform.localPosition = Vector3.zero;
             Debug.Log("Defense Effect activated.");
         }
     }
@@ -77,12 +86,11 @@ public class OOPPlayer : Character
     {
         _enemy.TakeDamage(AttackPoint);
     }
+
     public void Attack(OOPBob _boss)
     {
-        // ����� BigCurrency �ҡ����������ҡѺ 1
         if (mapGenerator.player.inventory.numberOfItem("BigCurrency") >= 1)
         {
-            // ��� boss ���¾�ѧ���Ե�ͧ���
             _boss.TakeDamage(_boss.energy);
         }
     }
@@ -93,12 +101,12 @@ public class OOPPlayer : Character
         if (energy <= 0)
         {
             Debug.Log("Player is Dead");
+            UIManager.Instance.losepanel.SetActive(true);
         }
     }
 
     public void UseFireStorm()
     {
-        // ����� BigCurrency �ҡ����������ҡѺ 1
         if (inventory.numberOfItem("BigCurrency") >= 1)
         {
             if (ultimateMove != null && !isUseultimateMoveNow)
@@ -108,7 +116,6 @@ public class OOPPlayer : Character
                 ultimateMove.TriggerUltimateMove();
             }
         }
-
         else
         {
             if (inventory.numberOfItem("FireStorm") > 0)
@@ -116,7 +123,11 @@ public class OOPPlayer : Character
                 SoundManager.Instance.PlaySound(SoundManager.Instance.shootSound);
                 inventory.UseItem("FireStorm");
                 inventory.UseItem("FireStorm");
-                List<OOPEnemy> enemies = GetEnemiesAroundPlayer(this.gameObject.transform.position, 1);
+                List<OOPEnemy> enemies = GetEnemiesAroundPlayer(
+                    this.gameObject.transform.position,
+                    1
+                );
+
                 int count = 3;
                 if (count > enemies.Count)
                 {
@@ -127,42 +138,12 @@ public class OOPPlayer : Character
                     enemies[i].TakeDamage(10);
                 }
             }
-
             else
             {
                 Debug.Log("No FireStorm in inventory");
             }
         }
-
     }
-
-    // public OOPEnemy[] SortEnemiesByRemainningEnergy1()
-    // {
-    //     // do selection sort of enemy's energy
-    //     var enemies = mapGenerator.GetEnemies();
-    //     for (int i = 0; i < enemies.Length - 1; i++)
-    //     {
-    //         int minIndex = i;
-    //         for (int j = i + 1; j < enemies.Length; j++)
-    //         {
-    //             if (enemies[j].energy < enemies[minIndex].energy)
-    //             {
-    //                 minIndex = j;
-    //             }
-    //         }
-    //         var temp = enemies[i];
-    //         enemies[i] = enemies[minIndex];
-    //         enemies[minIndex] = temp;
-    //     }
-    //     return enemies;
-    // }
-
-    // public OOPEnemy[] SortEnemiesByRemainningEnergy2()
-    // {
-    //     var enemies = mapGenerator.GetEnemies();
-    //     Array.Sort(enemies, (a, b) => a.energy.CompareTo(b.energy));
-    //     return enemies;
-    // }
 
     public List<OOPEnemy> GetEnemiesAroundPlayer(Vector2 playerPosition, float range)
     {
@@ -182,5 +163,4 @@ public class OOPPlayer : Character
 
         return enemiesAround;
     }
-
 }
