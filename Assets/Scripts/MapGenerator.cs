@@ -16,9 +16,15 @@ public class MapGenerator : MonoBehaviour
     [Header("Set Exit")]
     public OOPExit Exit;
 
+    [Header("Set WallPrefab")]
+    public GameObject[] cornerWallPrefab;
+    public GameObject[] topWallPrefab;
+    public GameObject[] bottomWallPrefab;
+    public GameObject[] leftWallPrefab;
+    public GameObject[] rightWallPrefab;
+
     [Header("Set Prefab")]
     public GameObject[] floorsPrefab;
-    public GameObject[] wallsPrefab;
     public GameObject[] demonWallsPrefab;
     public GameObject[] itemsPrefab;
     public GameObject[] keysPrefab;
@@ -91,15 +97,23 @@ public class MapGenerator : MonoBehaviour
             {
                 if (x == -1 || x == X || y == -1 || y == Y)
                 {
-                    int r = Random.Range(0, wallsPrefab.Length);
-                    GameObject obj = Instantiate(wallsPrefab[r], new Vector3(x, y, 0), Quaternion.identity);
-                    obj.transform.parent = wallParent;
-                    obj.name = "Wall_" + x + ", " + y;
+                    string positionType = WallPositionType(x, y, X, Y);
+                    GameObject obj = InstantiateWall(positionType, x, y);
+
+                    if (obj != null)
+                    {
+                        obj.transform.parent = wallParent;
+                        obj.name = "Wall_" + x + ", " + y;
+                    }
                 }
                 else
                 {
                     int r = Random.Range(0, floorsPrefab.Length);
-                    GameObject obj = Instantiate(floorsPrefab[r], new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject obj = Instantiate(
+                        floorsPrefab[r],
+                        new Vector3(x, y, 1),
+                        Quaternion.identity
+                    );
                     obj.transform.parent = floorParent;
                     obj.name = "floor_" + x + ", " + y;
                 }
@@ -226,8 +240,108 @@ public class MapGenerator : MonoBehaviour
 
     public int GetMapData(float x, float y)
     {
-        if (x >= X || x < 0 || y >= Y || y < 0) return -1;
+        if (x >= X || x < 0 || y >= Y || y < 0)
+            return -1;
         return mapdata[(int)x, (int)y];
+    }
+
+    private string WallPositionType(int x, int y, int maxX, int maxY)
+    {
+        if (
+            (x == -1 && y == -1)
+            || (x == -1 && y == maxY)
+            || (x == maxX && y == -1)
+            || (x == maxX && y == maxY)
+        )
+        {
+            return "Corner";
+        }
+        else if (y == maxY)
+        {
+            return "Top";
+        }
+        else if (y == -1)
+        {
+            return "Bottom";
+        }
+        else if (x == -1)
+        {
+            return "Left";
+        }
+        else if (x == maxX)
+        {
+            return "Right";
+        }
+
+        return "None";
+    }
+
+    private GameObject InstantiateWall(string positionType, int x, int y)
+    {
+        GameObject obj = null;
+
+        switch (positionType)
+        {
+            case "Corner":
+                if (x == -1 && y == -1) // bottom left
+                {
+                    obj = Instantiate(cornerWallPrefab[0], new Vector3(x, y, 0), Quaternion.identity);
+                }
+                else if (x == -1 && y == Y) // top left
+                {
+                    obj = Instantiate(cornerWallPrefab[1], new Vector3(x, y, 0), Quaternion.identity);
+                }
+                else if (x == X && y == -1) // bottom right
+                {
+                    obj = Instantiate(cornerWallPrefab[2], new Vector3(x, y, 0), Quaternion.identity);
+                }
+                else if (x == X && y == Y) // top right
+                {
+                    obj = Instantiate(cornerWallPrefab[3], new Vector3(x, y, 0), Quaternion.identity);
+                }
+                break;
+
+            case "Top":
+                int topIndex = Random.Range(0, topWallPrefab.Length);
+                obj = Instantiate(
+                    topWallPrefab[topIndex],
+                    new Vector3(x, y, 0),
+                    Quaternion.identity
+                );
+                break;
+
+            case "Bottom":
+                int bottomIndex = Random.Range(0, bottomWallPrefab.Length);
+                obj = Instantiate(
+                    bottomWallPrefab[bottomIndex],
+                    new Vector3(x, y, 0),
+                    Quaternion.identity
+                );
+                break;
+
+            case "Left":
+                int leftIndex = Random.Range(0, leftWallPrefab.Length);
+                obj = Instantiate(
+                    leftWallPrefab[leftIndex],
+                    new Vector3(x, y, 0),
+                    Quaternion.identity
+                );
+                break;
+
+            case "Right":
+                int rightIndex = Random.Range(0, rightWallPrefab.Length);
+                obj = Instantiate(
+                    rightWallPrefab[rightIndex],
+                    new Vector3(x, y, 0),
+                    Quaternion.identity
+                );
+                break;
+
+            default:
+                break;
+        }
+
+        return obj;
     }
 
     public void PlaceItem(int x, int y)
@@ -271,43 +385,45 @@ public class MapGenerator : MonoBehaviour
 
     public void PlaceBoss()
     {
-        int maxAttempts = 100; // จำนวนครั้งสูงสุดที่พยายามหาตำแหน่งว่าง
+        int maxAttempts = 100;
         int attempts = 0;
-        int x, y;
+        int x,
+            y;
 
         do
         {
-            // สุ่มตำแหน่งในแผนที่
             x = Random.Range(0, mapdata.GetLength(0) - 1);
             y = Random.Range(0, mapdata.GetLength(1) - 1);
 
             attempts++;
             if (attempts >= maxAttempts)
             {
-                Debug.LogError("[PlaceBoss] Cannot find empty space to place boss after multiple attempts.");
-                return; // ออกจากฟังก์ชันหากพยายามเกินจำนวนครั้งที่กำหนด
+                Debug.LogError(
+                    "[PlaceBoss] Cannot find empty space to place boss after multiple attempts."
+                );
+                return;
             }
-
-        } while (!IsAreaEmpty(x, y)); // ทำซ้ำจนกว่าจะเจอพื้นที่ว่าง
+        } while (!IsAreaEmpty(x, y));
 
         int r = Random.Range(0, bossesPrefab.Length);
-        GameObject obj = Instantiate(bossesPrefab[r], new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+        GameObject obj = Instantiate(
+            bossesPrefab[r],
+            new Vector3(x + 0.5f, y + 0.5f, 0),
+            Quaternion.identity
+        );
         obj.transform.parent = enemyParent;
 
-        // ตั้งค่า 4 ช่องใน mapdata
         mapdata[x, y] = boss;
         mapdata[x + 1, y] = boss;
         mapdata[x, y + 1] = boss;
         mapdata[x + 1, y + 1] = boss;
 
-        // ตั้งค่า 4 ช่องใน bosses array
         OOPBob bossInstance = obj.GetComponent<OOPBob>();
         bosses[x, y] = bossInstance;
         bosses[x + 1, y] = bossInstance;
         bosses[x, y + 1] = bossInstance;
         bosses[x + 1, y + 1] = bossInstance;
 
-        // อัปเดตตำแหน่งของ Boss
         bossInstance.positionX = x;
         bossInstance.positionY = y;
         bossInstance.mapGenerator = this;
@@ -316,13 +432,14 @@ public class MapGenerator : MonoBehaviour
         Debug.Log($"[PlaceBoss] Successfully placed boss at ({x}, {y}) after {attempts} attempts.");
     }
 
-
-
-
     public void PlaceDemonWall(int x, int y)
     {
         int r = Random.Range(0, demonWallsPrefab.Length);
-        GameObject obj = Instantiate(demonWallsPrefab[r], new Vector3(x, y, 0), Quaternion.identity);
+        GameObject obj = Instantiate(
+            demonWallsPrefab[r],
+            new Vector3(x, y, 0),
+            Quaternion.identity
+        );
         obj.transform.parent = wallParent;
         mapdata[x, y] = demonWall;
         walls[x, y] = obj.GetComponent<OOPWall>();
@@ -336,7 +453,7 @@ public class MapGenerator : MonoBehaviour
     {
         int r = Random.Range(0, fireStormPrefab.Length);
         GameObject obj = Instantiate(fireStormPrefab[r], new Vector3(x, y, 0), Quaternion.identity);
-        obj.transform.parent = wallParent;
+        obj.transform.parent = itemPotionParent;
         mapdata[x, y] = fireStorm;
         fireStorms[x, y] = obj.GetComponent<OOPScroll>();
         fireStorms[x, y].positionX = x;
@@ -347,7 +464,11 @@ public class MapGenerator : MonoBehaviour
 
     public void PlaceSmallCurrency(int x, int y)
     {
-        GameObject obj = Instantiate(smallCurrencyPrefab[0], new Vector3(x, y, 0), Quaternion.identity);
+        GameObject obj = Instantiate(
+            smallCurrencyPrefab[0],
+            new Vector3(x, y, 0),
+            Quaternion.identity
+        );
         obj.transform.parent = itemCurrencyParent;
         mapdata[x, y] = smallCurrency;
         smallCurrencies[x, y] = obj.GetComponent<OOPCurrency>();
@@ -356,9 +477,14 @@ public class MapGenerator : MonoBehaviour
         smallCurrencies[x, y].mapGenerator = this;
         obj.name = $"Item_{smallCurrencies[x, y].Name} {x}, {y}";
     }
+
     public void PlaceBigCurrency(int x, int y)
     {
-        GameObject obj = Instantiate(bigCurrencyPrefab[0], new Vector3(x, y, 0), Quaternion.identity);
+        GameObject obj = Instantiate(
+            bigCurrencyPrefab[0],
+            new Vector3(x, y, 0),
+            Quaternion.identity
+        );
         obj.transform.parent = itemCurrencyParent;
         mapdata[x, y] = bigCurrency;
         bigCurrencies[x, y] = obj.GetComponent<OOPCurrency>();
@@ -400,13 +526,11 @@ public class MapGenerator : MonoBehaviour
             return false;
         }
 
-        return mapdata[x, y] == empty &&
-               mapdata[x + 1, y] == empty &&
-               mapdata[x, y + 1] == empty &&
-               mapdata[x + 1, y + 1] == empty;
+        return mapdata[x, y] == empty
+            && mapdata[x + 1, y] == empty
+            && mapdata[x, y + 1] == empty
+            && mapdata[x + 1, y + 1] == empty;
     }
-
-
 
     public OOPEnemy[] GetEnemies()
     {
@@ -420,6 +544,7 @@ public class MapGenerator : MonoBehaviour
         }
         return list.ToArray();
     }
+
     public OOPBob[] GetBoss()
     {
         List<OOPBob> list = new List<OOPBob>();

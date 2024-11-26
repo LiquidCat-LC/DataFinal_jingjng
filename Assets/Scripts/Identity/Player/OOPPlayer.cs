@@ -10,7 +10,7 @@ public class OOPPlayer : Character
     public GameObject currentDefenseEffect;
     public bool isUseultimateMoveNow;
 
-    public void Start()
+    protected override void Start()
     {
         isUseultimateMoveNow = false;
         PrintInfo();

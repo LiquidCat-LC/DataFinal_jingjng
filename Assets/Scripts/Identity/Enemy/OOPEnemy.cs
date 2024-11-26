@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class OOPEnemy : Character
 {
-    public void Start()
+    protected override void Start()
     {
+        base.Start();
         GetRemainEnergy();
     }
 
@@ -83,23 +84,23 @@ public class OOPEnemy : Character
         }
     }
 
-    public GameObject freezeEffectPrefab; // Prefab ÊÓËÃÑº Freeze Effect
-    public GameObject currentFreezeEffect; // µÑÇÍéÒ§ÍÔ§ÊÓËÃÑº Freeze Effect
-    private bool isFrozen = false; // Ê¶Ò¹Ðáªèá¢ç§
+    public GameObject freezeEffectPrefab; // Prefab ï¿½ï¿½ï¿½ï¿½Ñº Freeze Effect
+    public GameObject currentFreezeEffect; // ï¿½ï¿½ï¿½ï¿½ï¿½Ò§ï¿½Ô§ï¿½ï¿½ï¿½ï¿½Ñº Freeze Effect
+    private bool isFrozen = false; // Ê¶Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public void ApplyFreezeEffect()
     {
-        // ÊÃéÒ§ Freeze Effect ËÒ¡ÂÑ§äÁèÁÕ
+        // ï¿½ï¿½ï¿½Ò§ Freeze Effect ï¿½Ò¡ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½
         if (freezeEffectPrefab != null && currentFreezeEffect == null)
         {
             currentFreezeEffect = Instantiate(freezeEffectPrefab, transform.position, Quaternion.identity);
 
-            // µÔ´ Freeze Effect ¡Ñº Enemy
+            // ï¿½Ô´ Freeze Effect ï¿½Ñº Enemy
             currentFreezeEffect.transform.SetParent(this.transform, false);
-            currentFreezeEffect.transform.localPosition = Vector3.zero; // ÇÒ§µÃ§¡ÅÒ§¢Í§ Enemy
+            currentFreezeEffect.transform.localPosition = Vector3.zero; // ï¿½Ò§ï¿½Ã§ï¿½ï¿½Ò§ï¿½Í§ Enemy
         }
 
-        isFrozen = true; // µÑé§Ê¶Ò¹Ðáªèá¢ç§
+        isFrozen = true; // ï¿½ï¿½ï¿½Ê¶Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½
         Debug.Log($"Freeze Effect applied to Enemy at ({positionX}, {positionY}).");
     }
 
@@ -107,14 +108,14 @@ public class OOPEnemy : Character
     {
         if (isFrozen)
         {
-            // ¤ÃÑé§áÃ¡: Enemy ¶Ù¡áªèá¢ç§áÅÐäÁèà´Ô¹
-            isFrozen = false; // à¤ÅÕÂÃìÊ¶Ò¹Ðáªèá¢ç§ÊÓËÃÑº¤ÃÑé§¶Ñ´ä»
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡: Enemy ï¿½Ù¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¹
+            isFrozen = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½é§¶Ñ´ï¿½
             Debug.Log($"Enemy at ({positionX}, {positionY}) is frozen and cannot move.");
 
-            return; // ËÂØ´¡ÒÃ·Ó§Ò¹à¾ÔèÁàµÔÁã¹à·ÔÃì¹¹Õé
+            return; // ï¿½ï¿½Ø´ï¿½ï¿½Ã·Ó§Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¹¹ï¿½ï¿½
         }
 
-        // Åº Freeze Effect ËÒ¡ÁÕ
+        // Åº Freeze Effect ï¿½Ò¡ï¿½ï¿½
         if (currentFreezeEffect != null)
         {
             Destroy(currentFreezeEffect);
@@ -122,7 +123,7 @@ public class OOPEnemy : Character
             Debug.Log($"Freeze Effect removed from Enemy at ({positionX}, {positionY}).");
         }
 
-        // ¡ÒÃà¤Å×èÍ¹·Õè»¡µÔ¢Í§ Enemy
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½è»¡ï¿½Ô¢Í§ Enemy
         int toX = positionX;
         int toY = positionY;
         int random = Random.Range(0, 4);

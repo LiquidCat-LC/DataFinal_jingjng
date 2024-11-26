@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class OOPBob : Character
 {
-    public void Start()
+    protected override void Start()
     {
+        base.Start();
         GetRemainEnergy();
     }
 
     public override void Hit()
     {
-        
         mapGenerator.player.Attack(this);
         this.Attack(mapGenerator.player);
 
@@ -54,7 +54,7 @@ public class OOPBob : Character
 
         if (energy <= 0)
         {
-            // ÅéÒ§¤èÒ·Ñé§ 4 ªèÍ§ã¹ mapdata áÅÐ bosses
+            // ï¿½ï¿½Ò§ï¿½ï¿½Ò·ï¿½ï¿½ 4 ï¿½ï¿½Í§ï¿½ mapdata ï¿½ï¿½ï¿½ bosses
             mapGenerator.bosses[positionX, positionY] = null;
             mapGenerator.bosses[positionX + 1, positionY] = null;
             mapGenerator.bosses[positionX, positionY + 1] = null;
@@ -65,7 +65,7 @@ public class OOPBob : Character
             mapGenerator.mapdata[positionX, positionY + 1] = mapGenerator.empty;
             mapGenerator.mapdata[positionX + 1, positionY + 1] = mapGenerator.empty;
 
-            // ÇÒ§ Key ã¹µÓáË¹è§µÃ§¡ÅÒ§¢Í§ Boss
+            // ï¿½Ò§ Key ã¹µï¿½ï¿½Ë¹è§µÃ§ï¿½ï¿½Ò§ï¿½Í§ Boss
             int keyX = positionX;
             int keyY = positionY;
             mapGenerator.PlaceKey(keyX, keyY);
@@ -78,13 +78,13 @@ public class OOPBob : Character
 
     public void TeleportBoss()
     {
-        int maxAttempts = 50; // ¨Ó¹Ç¹¤ÃÑé§ÊÙ§ÊØ´·Õè¾ÂÒÂÒÁÊØèÁËÒµÓáË¹è§ÇèÒ§
+        int maxAttempts = 50; // ï¿½Ó¹Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½Ù§ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Ë¹ï¿½ï¿½ï¿½Ò§
         int attempts = 0;
         int x, y;
 
         do
         {
-            // ÊØèÁµÓáË¹è§ã¹á¼¹·Õè
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½á¼¹ï¿½ï¿½ï¿½
             x = Random.Range(0, mapGenerator.mapdata.GetLength(0) - 1);
             y = Random.Range(0, mapGenerator.mapdata.GetLength(1) - 1);
 
@@ -92,14 +92,14 @@ public class OOPBob : Character
             if (attempts >= maxAttempts)
             {
                 Debug.LogError("[TeleportBoss] Cannot find empty space to teleport after multiple attempts.");
-                return; // ÍÍ¡¨Ò¡¿Ñ§¡ìªÑ¹ËÒ¡¾ÂÒÂÒÁà¡Ô¹¨Ó¹Ç¹¤ÃÑé§·Õè¡ÓË¹´
+                return; // ï¿½Í¡ï¿½Ò¡ï¿½Ñ§ï¿½ï¿½Ñ¹ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¹ï¿½Ó¹Ç¹ï¿½ï¿½ï¿½é§·ï¿½ï¿½ï¿½Ë¹ï¿½
             }
 
-        } while (!mapGenerator.IsAreaEmpty(x, y)); // ·Ó«éÓ¨¹¡ÇèÒ¨Ðà¨Í¾×é¹·ÕèÇèÒ§
+        } while (!mapGenerator.IsAreaEmpty(x, y)); // ï¿½Ó«ï¿½Ó¨ï¿½ï¿½ï¿½ï¿½Ò¨ï¿½ï¿½Í¾ï¿½é¹·ï¿½ï¿½ï¿½ï¿½Ò§
 
         Debug.Log($"[TeleportBoss] Teleporting boss to ({x}, {y}) after {attempts} attempts.");
 
-        // ÅéÒ§µÓáË¹è§à´ÔÁ
+        // ï¿½ï¿½Ò§ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½
         mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
         mapGenerator.mapdata[positionX + 1, positionY] = mapGenerator.empty;
         mapGenerator.mapdata[positionX, positionY + 1] = mapGenerator.empty;
@@ -110,7 +110,7 @@ public class OOPBob : Character
         mapGenerator.bosses[positionX, positionY + 1] = null;
         mapGenerator.bosses[positionX + 1, positionY + 1] = null;
 
-        // ÍÑ»à´µµÓáË¹è§ãËÁè
+        // ï¿½Ñ»à´µï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ï¿½ï¿½
         positionX = x;
         positionY = y;
 
@@ -124,7 +124,7 @@ public class OOPBob : Character
         mapGenerator.bosses[positionX, positionY + 1] = this;
         mapGenerator.bosses[positionX + 1, positionY + 1] = this;
 
-        // ÂéÒÂµÓáË¹è§ GameObject
+        // ï¿½ï¿½ï¿½Âµï¿½ï¿½Ë¹ï¿½ GameObject
         transform.position = new Vector3(positionX + 0.5f, positionY + 0.5f, 0);
     }
 

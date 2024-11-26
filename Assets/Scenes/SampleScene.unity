@@ -2914,6 +2914,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5105336722839496159, guid: 301daca562261854a9fd8621d6dcbc77, type: 3}
     - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: topWallPrefab.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
       propertyPath: itemsPrefab.Array.data[0]
       value: 
       objectReference: {fileID: 8058095328752623144, guid: a6640c0d7f839584cb1e86a75621d109, type: 3}
@@ -2921,6 +2925,10 @@ PrefabInstance:
       propertyPath: itemsPrefab.Array.data[1]
       value: 
       objectReference: {fileID: 8058095328752623144, guid: f12b6bcfcc0d6a9469ecfa1e7a2ed9ff, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: leftWallPrefab.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
       propertyPath: wallsPrefab.Array.data[0]
       value: 
@@ -2942,6 +2950,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7112007057315183848, guid: 602f459755a0ebf4ca2f95aa85e38e66, type: 3}
     - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: rightWallPrefab.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: bottomWallPrefab.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: cornerWallPrefab.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
       propertyPath: defensePrefab.Array.data[0]
       value: 
       objectReference: {fileID: 7112007057315183848, guid: bd17de175e2a6884b8c3215b8af75b4b, type: 3}
@@ -2958,13 +2978,77 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4205575020118405316, guid: 1999ff96697ccd54a820171436d98ec2, type: 3}
     - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: topWallPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 5fbc5e26c7e671a4fbb2ba317d6211f3, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: topWallPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 35ca50cafed4a3142b93e16898decb63, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: topWallPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: b9c433b838f00464989e7169d64a1996, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
       propertyPath: bigCurrencyPrefab.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: leftWallPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 9f6e3a4216aa1364f8165f76768714eb, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: leftWallPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 82cc9a67e05afc245a9454a21a05a885, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: leftWallPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 949513e92e9a5ab4e9f975a102f208d4, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
       propertyPath: fireStormPrefab.Array.data[0]
       value: 
       objectReference: {fileID: 7112007057315183848, guid: 12e3cb18317cfbf46b5af722ae5172f5, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: rightWallPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 77df572d9c76baf47b2d62955182d06c, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: rightWallPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 349b81d2265595f42840272f8e8b38c6, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: rightWallPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: d61afc0d637e73944813d1e3d720cd7c, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: bottomWallPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: f81e02c7cf033b2408a2d3d911a3403d, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: bottomWallPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 580c09fbb783e044d982e3853af75102, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: bottomWallPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: bbdc758ae4aaa51418eb81e69abc0a4c, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: cornerWallPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 1c0f3b5d5a1993f4c830d8315a47711d, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: cornerWallPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 6bc972493f5abe54b89e09cb7591824b, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: cornerWallPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: d2112227c7e01dd48b8c491104d5f836, type: 3}
+    - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
+      propertyPath: cornerWallPrefab.Array.data[3]
+      value: 
+      objectReference: {fileID: 5023702492093671150, guid: 51bea0a0dcda4af48a26c732736ff3e7, type: 3}
     - target: {fileID: 3203919814765840245, guid: 6affd1fefe3b0b74c939a5c28d010b90, type: 3}
       propertyPath: demonWallsPrefab.Array.data[0]
       value: 
