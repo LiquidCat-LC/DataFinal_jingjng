@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c546d7a16080543bd5153bf7990570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Fire
+  Name: FireStorm
   positionX: 0
   positionY: 0
   mapGenerator: {fileID: 0}

@@ -57,7 +57,6 @@ public class OOPPlayer : Character
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 UseFireStorm();
-                UIManager.Instance.UpdateScrollNumber(inventory.numberOfItem("FireStorm"));
             }
         }
 
@@ -122,7 +121,7 @@ public class OOPPlayer : Character
             {
                 SoundManager.Instance.PlaySound(SoundManager.Instance.shootSound);
                 inventory.UseItem("FireStorm");
-                inventory.UseItem("FireStorm");
+                //inventory.UseItem("FireStorm");
                 List<OOPEnemy> enemies = GetEnemiesAroundPlayer(
                     this.gameObject.transform.position,
                     1

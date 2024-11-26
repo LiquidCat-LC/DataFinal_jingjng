@@ -4,71 +4,75 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-        private Dictionary<string, int> inventory = new Dictionary<string, int>();
+    private Dictionary<string, int> inventory = new Dictionary<string, int>();
 
-        public void AddItem(string itemName)
+    public void AddItem(string itemName)
+    {
+        if (inventory.ContainsKey(itemName))
         {
-            if (inventory.ContainsKey(itemName))
-            {
-                inventory[itemName] += 1;  
-            }
-            else
-            {
-                inventory.Add(itemName, 1); 
-            }
-
-            Debug.Log($"add item {itemName} => total: {inventory[itemName]}");
-
+            inventory[itemName] += 1;
+        }
+        else
+        {
+            inventory.Add(itemName, 1);
         }
 
-        public void AddItem(string itemName, int amount)
-        {
-            // ...
-        }
+        Debug.Log($"add item {itemName} => total: {inventory[itemName]}");
+    }
 
-        public void UseItem(string itemName)
+    public void AddItem(string itemName, int amount)
+    {
+        // ...
+    }
+
+    public void UseItem(string itemName)
+    {
+        if (inventory.ContainsKey(itemName))
         {
-            if (inventory.ContainsKey(itemName))
+            int remaining = inventory[itemName] - 1;
+
+            if (remaining <= 0)
             {
-                int remaining = inventory[itemName] - 1;
-                if (remaining <= 0)
-                {
-                    inventory.Remove(itemName);  
-                }
-
-                Debug.Log($"remove {itemName} remaining: {remaining}");
+                inventory.Remove(itemName);
             }
-            else
-            {
-                Debug.LogWarning($"no item {itemName}");
-            }
-        }
 
-        
-        public void UseItem(string itemName, int amount)
-        {
-            // ...
-        }
-
-        
-        public int numberOfItem(string itemName)
-        {
-            if (inventory.ContainsKey(itemName))
+            Debug.Log($"remove {itemName} remaining: {remaining}");
+            if (itemName == "FireStorm")
             {
-                return inventory[itemName];
-            }
-            else
-            {
-                return 0;
+                UIManager.Instance.UpdateScrollNumber(
+                    inventory.ContainsKey("FireStorm") ? inventory["FireStorm"] : 0
+                );
             }
         }
-
-        public void ShowInventory()
+        else
         {
-            Debug.Log("Inventory ...");
-            foreach (KeyValuePair<string, int> item in inventory)
-            {
-                Debug.Log($"{item.Key}: {item.Value}");
-            }
+            Debug.LogWarning($"no item {itemName}");
         }
+    }
+
+    public void UseItem(string itemName, int amount)
+    {
+        // ...
+    }
+
+    public int numberOfItem(string itemName)
+    {
+        if (inventory.ContainsKey(itemName))
+        {
+            return inventory[itemName];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public void ShowInventory()
+    {
+        Debug.Log("Inventory ...");
+        foreach (KeyValuePair<string, int> item in inventory)
+        {
+            Debug.Log($"{item.Key}: {item.Value}");
+        }
+    }
 }
