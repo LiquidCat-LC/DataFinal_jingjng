@@ -136,6 +136,7 @@ public class OOPPlayer : Character
                 {
                     enemies[i].TakeDamage(10);
                 }
+                Debug.Log("FireStorm count: " + inventory.numberOfItem("FireStorm"));
             }
             else
             {

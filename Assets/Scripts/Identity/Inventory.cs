@@ -18,6 +18,10 @@ public class Inventory : MonoBehaviour
         }
 
         Debug.Log($"add item {itemName} => total: {inventory[itemName]}");
+        if (itemName == "FireStorm")
+        {
+            UIManager.Instance.UpdateScrollNum(1);
+        }
     }
 
     public void AddItem(string itemName, int amount)
@@ -27,21 +31,18 @@ public class Inventory : MonoBehaviour
 
     public void UseItem(string itemName)
     {
-        if (inventory.ContainsKey(itemName))
+        if (inventory.ContainsKey(itemName) && inventory[itemName] > 0)
         {
-            int remaining = inventory[itemName] - 1;
-
-            if (remaining <= 0)
-            {
-                inventory.Remove(itemName);
-            }
-
-            Debug.Log($"remove {itemName} remaining: {remaining}");
+            inventory[itemName]--;
+            Debug.Log($"remove {itemName} remaining: {inventory[itemName]}");
             if (itemName == "FireStorm")
             {
-                UIManager.Instance.UpdateScrollNumber(
-                    inventory.ContainsKey("FireStorm") ? inventory["FireStorm"] : 0
-                );
+                UIManager.Instance.UpdateScrollNum(-1);
+            }
+
+            if (inventory[itemName] <= 0)
+            {
+                inventory.Remove(itemName);
             }
         }
         else

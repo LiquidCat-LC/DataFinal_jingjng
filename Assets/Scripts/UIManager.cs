@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI currentEnergyText;
 
     [Header("scroll setup")]
+    public int remainScrollNum;
     public TextMeshProUGUI scrollNumText;
 
     [Header("defense setup")]
@@ -75,10 +76,20 @@ public class UIManager : MonoBehaviour
         energyFillImage.fillAmount = fillAmount;
     }
 
-    public void UpdateScrollNumber(int scrollNum)
+    public void UpdateScrollNum(int scrollNum)
+    {
+        remainScrollNum += scrollNum;
+        if(remainScrollNum <= 0 )
+        {
+            remainScrollNum = 0;
+        }
+        UpdateScrollUI(remainScrollNum);
+    }
+
+    public void UpdateScrollUI(int scrollNum)
     {
         scrollNumText.text = scrollNum.ToString();
-        Debug.Log("Update : "+scrollNum);
+        Debug.Log("Updatescroll : "+ scrollNum);
     }
 
     public void Updatedefense(bool isDefense)

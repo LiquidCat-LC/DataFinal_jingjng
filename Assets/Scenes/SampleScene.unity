@@ -3241,6 +3241,7 @@ MonoBehaviour:
   currentEnergy: 0
   energyFillImage: {fileID: 519729047}
   currentEnergyText: {fileID: 1412264092}
+  remainScrollNum: 0
   scrollNumText: {fileID: 708004896}
   defenseImage: {fileID: 823467530}
   defenseSprite:
