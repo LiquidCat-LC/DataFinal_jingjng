@@ -4,28 +4,36 @@ using UnityEngine;
 
 public class OOPWall : Identity
 {
-     public int Damage;
-        public bool IsIceWall;
+    public int Damage;
+    public bool IsIceWall;
 
-        private void Start()
+    private void Start()
+    {
+        IsIceWall = Random.Range(0, 100) < 20 ? true : false;
+        if (IsIceWall)
         {
-            IsIceWall = Random.Range(0, 100) < 20 ? true : false;
-            if (IsIceWall)
-            {
-                //GetComponent<SpriteRenderer>().color = Color.blue;
-            }
+            //GetComponent<SpriteRenderer>().color = Color.blue;
         }
-        public override void Hit()
+    }
+
+    public override void Hit()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.hitSound);
+        CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
+        if (cameraShake != null)
         {
-            if (IsIceWall)
-            {
-                mapGenerator.player.TakeDamage(Damage, IsIceWall);
-            }
-            else
-            {
-                mapGenerator.player.TakeDamage(Damage);
-            }
-            mapGenerator.mapdata[positionX, positionY] = 0;
-            Destroy(gameObject);
+            cameraShake.StartShake(0.1f, 0.3f);
         }
+
+        if (IsIceWall)
+        {
+            mapGenerator.player.TakeDamage(Damage, IsIceWall);
+        }
+        else
+        {
+            mapGenerator.player.TakeDamage(Damage);
+        }
+        mapGenerator.mapdata[positionX, positionY] = 0;
+        Destroy(gameObject);
+    }
 }

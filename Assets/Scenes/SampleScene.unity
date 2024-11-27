@@ -3209,7 +3209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1467737182}
   - component: {fileID: 1467737181}
-  - component: {fileID: 1467737183}
   m_Layer: 0
   m_Name: UImanager
   m_TagString: Untagged
@@ -3236,7 +3235,9 @@ MonoBehaviour:
   quest1Number: {fileID: 404808396}
   quest2Number: {fileID: 1581943637}
   quest3Number: {fileID: 1795652149}
-  scrollNumber: {fileID: 708004896}
+  smallCurrency: 0
+  bigCurrency: 0
+  hasKey: 0
   maxEnergy: 0
   currentEnergy: 0
   energyFillImage: {fileID: 519729047}
@@ -3262,21 +3263,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1467737183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467737180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 524adb40b39395746a728a4747547a3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smallCurrency: 0
-  bigCurrency: 0
-  hasKey: 0
 --- !u!1 &1537107639
 GameObject:
   m_ObjectHideFlags: 0

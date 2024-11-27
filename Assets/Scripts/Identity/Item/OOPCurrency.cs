@@ -5,12 +5,7 @@ using UnityEngine;
 
 public class OOPCurrency : Identity
 {
-    public QuestManager _QuestManager;
 
-    public void Start()
-    {
-        _QuestManager = FindAnyObjectByType<QuestManager>();
-    }
     public override void Hit()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.itemPickupSound);
@@ -19,7 +14,7 @@ public class OOPCurrency : Identity
             Debug.Log("hit small");
             mapGenerator.player.inventory.AddItem("SmallCurrency");
             mapGenerator.smallCurrencies[positionX, positionY] = null;
-            _QuestManager.CollectSmallCurrency();
+            UIManager.Instance.CollectSmallCurrency();
 
             if (mapGenerator.player.inventory.numberOfItem("SmallCurrency") >= 3)
             {
@@ -46,7 +41,7 @@ public class OOPCurrency : Identity
             Debug.Log("hit big");
             mapGenerator.player.inventory.AddItem("BigCurrency");
             mapGenerator.bigCurrencies[positionX, positionY] = null;
-            _QuestManager.CollectBigCurrency();
+            UIManager.Instance.CollectBigCurrency();
         }
         mapGenerator.mapdata[positionX, positionY] = mapGenerator.empty;
         Destroy(gameObject);

@@ -16,11 +16,13 @@ public class UIManager : MonoBehaviour
     public GameObject winpanel;
     public GameObject losepanel;
 
-    [Header("Text setup")]
+    [Header("Quest Setup")]
     public TextMeshProUGUI quest1Number;
     public TextMeshProUGUI quest2Number;
     public TextMeshProUGUI quest3Number;
-    public TextMeshProUGUI scrollNumber;
+    public int smallCurrency = 0;
+    public int bigCurrency = 0;
+    public bool hasKey = false;
 
     [Header("Energy setup")]
     public float maxEnergy;
@@ -48,22 +50,57 @@ public class UIManager : MonoBehaviour
         }
 
         maxEnergy = _player.energy;
+        remainScrollNum = 0;
     }
 
     public void Start()
     {
-        quest1Number.text = $"{QuestManager.Instance.smallCurrency}/3";
-        quest2Number.text = $"{QuestManager.Instance.bigCurrency}/1";
-        quest3Number.text = QuestManager.Instance.hasKey ? "1/1" : "0/1";
+        quest1Number.text = $"{smallCurrency}/3";
+        quest2Number.text = $"{bigCurrency}/1";
+        quest3Number.text = hasKey ? "1/1" : "0/1";
 
         currentEnergy = maxEnergy;
+        scrollNumText.text = remainScrollNum.ToString();
     }
 
-    public void UpdateQuestNumbers()
+    public void CollectSmallCurrency()
     {
-        quest1Number.text = $"{QuestManager.Instance.smallCurrency}/3";
-        quest2Number.text = $"{QuestManager.Instance.bigCurrency}/1";
-        quest3Number.text = QuestManager.Instance.hasKey ? "1/1" : "0/1";
+        smallCurrency++;
+        UpdateQuestNumbers("smallCurrency");
+    }
+
+    public void CollectBigCurrency()
+    {
+        bigCurrency++;
+        UpdateQuestNumbers("bigCurrency");
+    }
+
+    public void CollectKey()
+    {
+        hasKey = true;
+        UpdateQuestNumbers("hasKey");
+    }
+
+    public void UpdateQuestNumbers(string questType)
+    {
+        switch (questType)
+        {
+            case "smallCurrency":
+                quest1Number.text = $"{smallCurrency}/3";
+                break;
+
+            case "bigCurrency":
+                quest2Number.text = $"{bigCurrency}/1";
+                break;
+
+            case "hasKey":
+                quest3Number.text = hasKey ? "1/1" : "0/1";
+                break;
+
+            default:
+                Debug.LogWarning($"Unknown quest type: {questType}");
+                break;
+        }
     }
 
     public void UpdateEnergyUI()
@@ -79,7 +116,7 @@ public class UIManager : MonoBehaviour
     public void UpdateScrollNum(int scrollNum)
     {
         remainScrollNum += scrollNum;
-        if(remainScrollNum <= 0 )
+        if (remainScrollNum <= 0)
         {
             remainScrollNum = 0;
         }
@@ -89,7 +126,7 @@ public class UIManager : MonoBehaviour
     public void UpdateScrollUI(int scrollNum)
     {
         scrollNumText.text = scrollNum.ToString();
-        Debug.Log("Updatescroll : "+ scrollNum);
+        Debug.Log("Updatescroll : " + scrollNum);
     }
 
     public void Updatedefense(bool isDefense)
